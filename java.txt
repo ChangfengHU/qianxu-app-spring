@@ -1,0 +1,43 @@
+package cn.itcast.day25_03;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
+// TCP 服务端程序
+
+public class TCPServerDemo01 {
+	public static void main(String[] args) throws IOException {
+		// 1. 创建服务端套接字
+		ServerSocket serverSocket = new ServerSocket(10010);
+
+		// 2. 服务端套接字等待 / 接收 连接 (阻塞方法)
+		Socket socket = serverSocket.accept();
+
+		// 3. 获取套接字通道的输入流, 读取数据
+		InputStream in = socket.getInputStream();
+		byte[] buf = new byte[1024];
+		int len = -1;
+		// 获取客户端的 IP 地址
+		String ip = socket.getInetAddress().getHostAddress();
+		// while ((len = in.read(buf)) != -1) IO学习中编写的代码. IO学习时从文件中读取数据.
+		// 文件中可以读取到 -1.
+		// 现在不一样, 从 `套接字` 通道中读取数据. 读取不到 -1.
+		while ((len = in.read(buf)) != -1) {
+			String str = new String(buf, 0, len);
+			System.out.println(ip + " : " + str);
+		}
+
+		// 4. 给客户端回送一条反馈信息 (需要拿到套接字通道的输出流)
+		OutputStream out = socket.getOutputStream();
+		out.write("上传成功!".getBytes());
+		// shutdown 关闭输出流. 提醒 : 只要往套接字通道中输入数据, 完成一定要关闭套接字输出流. 这样客户端在循环读取时,才能够读取到
+		// -1.
+		socket.shutdownOutput();
+
+		// 5. 关闭服务端套接字
+		serverSocket.close();
+	}
+}
