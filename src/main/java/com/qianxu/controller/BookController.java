@@ -2,6 +2,7 @@ package com.qianxu.controller;
 
 import com.qianxu.pojo.Book;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -16,15 +17,16 @@ import java.util.List;
  */
 @RestController
 public class BookController {
-    @GetMapping("/books")
+    @RequestMapping(value = "/books" ,produces="text/plain;charset=UTF-8")
     public ModelAndView books() throws UnsupportedEncodingException {
         List<Book> books = new ArrayList<>();
         Book b1 = new Book();
-        b1.setAuthor("ç½—è´¯ä¸­");
-        b1.setName("ä¸‰å›½æ¼”ä¹‰");
+        String a="ÂÞ¹áÖÐ";
+        b1.setAuthor("ÂÞ¹áÖÐ");
+        b1.setName("Èý¹úÑÝÒå");
         Book b2 = new Book();
-        b2.setAuthor("æ›¹é›ªèŠ¹");
-        b2.setName(    URLDecoder.decode("çº¢æ¥¼æ¢¦", "GBK"));
+        b2.setAuthor("²ÜÑ©ÇÛ");
+        b2.setName(    URLDecoder.decode("ºìÂ¥ÃÎ", "GBK"));
 
         books.add(b1);
         books.add(b2);
@@ -37,8 +39,8 @@ public class BookController {
     @GetMapping("/book")
     public com.qianxu.pojo.Book book() {
         Book book = new Book();
-        book.setAuthor("ç½—è´¯ä¸­");
-        book.setName("ä¸‰å›½æ¼”ä¹‰");
+        book.setAuthor("ÂÞ¹áÖÐ");
+        book.setName("Èý¹úÑÝÒå");
         book.setPrice(30f);
         book.setPublicationDate(new Date());
 
