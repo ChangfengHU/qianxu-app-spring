@@ -17,6 +17,7 @@ import java.util.List;
  */
 @RestController
 public class BookController {
+
     @RequestMapping(value = "/books" ,produces="text/plain;charset=UTF-8")
     public ModelAndView books() throws UnsupportedEncodingException {
         List<Book> books = new ArrayList<>();
@@ -36,7 +37,7 @@ public class BookController {
         return mv;
     }
 
-    @GetMapping("/book")
+    @RequestMapping("/book")
     public com.qianxu.pojo.Book book() {
         Book book = new Book();
         book.setAuthor("ÂÞ¹áÖÐ");
